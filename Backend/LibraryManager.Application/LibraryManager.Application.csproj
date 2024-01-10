@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LibraryManager.Core\LibraryManager.Core.csproj" />
     <ProjectReference Include="..\LibraryManager.Infraestructure\LibraryManager.Infraestructure.csproj" />
   </ItemGroup>
