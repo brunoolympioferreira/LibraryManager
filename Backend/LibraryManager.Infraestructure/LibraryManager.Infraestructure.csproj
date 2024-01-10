@@ -14,4 +14,9 @@
     <ProjectReference Include="..\LibraryManager.Core\LibraryManager.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Configuration\" />
+    <Folder Include="Persistence\Repositories\" />
+  </ItemGroup>
+
 </Project>
