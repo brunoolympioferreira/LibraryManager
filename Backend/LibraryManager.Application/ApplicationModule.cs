@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LibraryManager.Application.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryManager.Application;
 public static class ApplicationModule
@@ -10,6 +11,9 @@ public static class ApplicationModule
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.
+            AddScoped<IBookService, BookService>();
+
         return services;
     }
 

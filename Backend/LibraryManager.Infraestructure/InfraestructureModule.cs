@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LibraryManager.Core.Repositories;
+using LibraryManager.Infraestructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryManager.Infraestructure;
@@ -20,6 +22,8 @@ public static class InfraestructureModule
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
+        services
+            .AddScoped<IBookRepository, BookRepository>();
         return services;
     }
 }

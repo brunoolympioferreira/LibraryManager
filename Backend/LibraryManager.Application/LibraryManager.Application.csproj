@@ -16,10 +16,4 @@
     <ProjectReference Include="..\LibraryManager.Infraestructure\LibraryManager.Infraestructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\InputModels\" />
-    <Folder Include="DTO\ViewModels\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
