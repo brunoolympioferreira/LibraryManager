@@ -1,6 +1,5 @@
 ﻿using LibraryManager.Application.DTO.InputModels;
 using LibraryManager.Application.DTO.ViewModels;
-using LibraryManager.Core.Entities;
 using LibraryManager.Core.Repositories;
 
 namespace LibraryManager.Application.Services;
@@ -24,6 +23,17 @@ public class BookService : IBookService
         }
 
         return new BaseResult<List<BookViewModel>>(viewModels);
+    }
+
+    public async Task<BaseResult<BookViewModel>> GetById(Guid id)
+    {
+        var book = await _repository.GetByIdAsync(id);
+
+        if (book is null) return new BaseResult<BookViewModel>(new BookViewModel(book), false, "Este livro não existe em nossa base de dados.");
+
+        var viewModel = new BookViewModel(book);
+
+        return new BaseResult<BookViewModel>(viewModel);
     }
 
     public async Task<BaseResult<Guid>> Register(RegisterBookInputModel model)
