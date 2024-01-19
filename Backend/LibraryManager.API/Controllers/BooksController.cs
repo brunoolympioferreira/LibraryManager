@@ -29,4 +29,14 @@ public class BooksController : ControllerBase
 
         return Ok(books);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var book = await _service.GetById(id);
+
+        if (book.Success == false) return NotFound(book);
+
+        return Ok(book);
+    }
 }
