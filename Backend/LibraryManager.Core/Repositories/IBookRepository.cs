@@ -4,4 +4,6 @@ namespace LibraryManager.Core.Repositories;
 public interface IBookRepository
 {
     Task AddAsync(Book book);
+    Task<List<Book>> GetAllAsync();
+       
 }

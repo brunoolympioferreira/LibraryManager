@@ -1,4 +1,5 @@
 ﻿using LibraryManager.Application.DTO.InputModels;
+using LibraryManager.Application.DTO.ViewModels;
 using LibraryManager.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,5 +20,13 @@ public class BooksController : ControllerBase
         var result = await _service.Register(model);
 
         return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var books = await _service.GetAll();
+
+        return Ok(books);
     }
 }
