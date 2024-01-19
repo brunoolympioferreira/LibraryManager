@@ -1,5 +1,6 @@
 ﻿using LibraryManager.Core.Entities;
 using LibraryManager.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Infraestructure.Persistence.Repositories;
 public class BookRepository : IBookRepository
@@ -14,5 +15,12 @@ public class BookRepository : IBookRepository
         await _context.Books.AddAsync(book);
 
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Book>> GetAllAsync()
+    {
+        List<Book> books = await _context.Books.AsNoTracking().ToListAsync();
+
+        return books;
     }
 }
