@@ -1,6 +1,8 @@
 ﻿using LibraryManager.Application.DTO.InputModels;
 using LibraryManager.Application.DTO.ViewModels;
+using LibraryManager.Core.Entities;
 using LibraryManager.Core.Repositories;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LibraryManager.Application.Services;
 public class BookService : IBookService
@@ -46,7 +48,7 @@ public class BookService : IBookService
     }
 
     public async Task<BaseResult> Delete(Guid id)
-    {
+    {       
         await _repository.DeleteAsync(id);
 
         return new BaseResult();   

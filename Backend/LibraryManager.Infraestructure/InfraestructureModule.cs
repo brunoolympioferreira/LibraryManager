@@ -23,7 +23,9 @@ public static class InfraestructureModule
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services
-            .AddScoped<IBookRepository, BookRepository>();
+            .AddScoped<IBookRepository, BookRepository>()
+            .AddScoped<IUserRepository, UserRepository>();
+
         return services;
     }
 }
