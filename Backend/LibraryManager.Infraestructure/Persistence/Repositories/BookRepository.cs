@@ -30,4 +30,13 @@ public class BookRepository : IBookRepository
 
         return book;
     }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        Book? book = await _context.Books.AsNoTracking().SingleOrDefaultAsync(b => b.Id == id);
+
+        _context.Books.Remove(book);
+
+        await _context.SaveChangesAsync();
+    }
 }

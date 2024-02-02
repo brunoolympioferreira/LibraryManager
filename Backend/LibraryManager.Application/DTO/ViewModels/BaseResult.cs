@@ -1,7 +1,7 @@
 ﻿namespace LibraryManager.Application.DTO.ViewModels;
 public class BaseResult
 {
-    public BaseResult(bool success, string message)
+    public BaseResult(bool success = true, string message = "")
     {
         Success = success;
         Message = message;

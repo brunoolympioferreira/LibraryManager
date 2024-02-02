@@ -44,4 +44,11 @@ public class BookService : IBookService
 
         return new BaseResult<Guid>(book.Id);
     }
+
+    public async Task<BaseResult> Delete(Guid id)
+    {
+        await _repository.DeleteAsync(id);
+
+        return new BaseResult();   
+    }
 }
