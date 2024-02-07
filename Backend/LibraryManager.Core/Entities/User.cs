@@ -9,4 +9,6 @@ public class User : AggregateRoot
 
     public string Name { get; private set; }
     public string Email { get; private set; }
+
+    public Loan Loan { get; set; }
 }

@@ -13,4 +13,6 @@ public class Book : AggregateRoot
     public string Author { get; private set; }
     public string ISBN { get; private set; }
     public int PublishedYear { get; private set; }
+
+    public Loan Loan { get; set; }
 }
