@@ -11,8 +11,9 @@ public static class ApplicationModule
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.
-            AddScoped<IBookService, BookService>();
+        services
+            .AddScoped<IBookService, BookService>()
+            .AddScoped<IUserService, UserService>();
 
         return services;
     }
