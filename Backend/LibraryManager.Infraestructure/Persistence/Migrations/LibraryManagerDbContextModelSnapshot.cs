@@ -73,6 +73,9 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DevolutionDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -87,11 +90,9 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId")
-                        .IsUnique();
+                    b.HasIndex("BookId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Loans");
                 });
@@ -129,32 +130,20 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
             modelBuilder.Entity("LibraryManager.Core.Entities.Loan", b =>
                 {
                     b.HasOne("LibraryManager.Core.Entities.Book", "Book")
-                        .WithOne("Loan")
-                        .HasForeignKey("LibraryManager.Core.Entities.Loan", "BookId")
+                        .WithMany()
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LibraryManager.Core.Entities.User", "User")
-                        .WithOne("Loan")
-                        .HasForeignKey("LibraryManager.Core.Entities.Loan", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LibraryManager.Core.Entities.Book", b =>
-                {
-                    b.Navigation("Loan")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LibraryManager.Core.Entities.User", b =>
-                {
-                    b.Navigation("Loan")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

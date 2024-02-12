@@ -19,6 +19,7 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoanDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DevolutionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -43,14 +44,12 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Loans_BookId",
                 table: "Loans",
-                column: "BookId",
-                unique: true);
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Loans_UserId",
                 table: "Loans",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
         }
 
         /// <inheritdoc />

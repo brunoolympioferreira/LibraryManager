@@ -1,16 +1,18 @@
 ﻿using LibraryManager.Application.DTO.InputModels;
 using LibraryManager.Application.DTO.ViewModels;
-using LibraryManager.Core.Entities;
 using LibraryManager.Core.Repositories;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LibraryManager.Application.Services;
 public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
-    public BookService(IBookRepository repository)
+    private readonly IUserRepository _userRepository;
+    private readonly ILoanRepository _loanRepository;
+    public BookService(IBookRepository repository, IUserRepository userRepository, ILoanRepository loanRepository)
     {
         _repository = repository;
+        _userRepository = userRepository;
+        _loanRepository = loanRepository;
     }
 
     public async Task<BaseResult<List<BookViewModel>>> GetAll()
@@ -48,9 +50,45 @@ public class BookService : IBookService
     }
 
     public async Task<BaseResult> Delete(Guid id)
-    {       
+    {
         await _repository.DeleteAsync(id);
 
-        return new BaseResult();   
+        return new BaseResult();
+    }
+
+    public async Task<BaseResult<Guid>> AddLoan(LoanInputModel model)
+    {
+
+        //Testar desenvolvimento sem criar chave estrangeira na tabela de emprestimos
+        BaseResult result = await LoanValidation(model);
+
+        if (result.Success == false)
+        {
+            var guid = new Guid();
+            return new BaseResult<Guid>(guid, false, result.Message);
+        }
+
+        var loan = model.ToEntity();
+
+        await _loanRepository.AddAsync(loan);
+
+        return new BaseResult<Guid>(loan.Id);
+    }
+
+    private async Task<BaseResult> LoanValidation(LoanInputModel model)
+    {
+        var user = await _userRepository.GetByIdAsync(model.UserId);
+        var book = await _repository.GetByIdAsync(model.BookId);
+
+        if (user is null)
+        {
+            return new BaseResult(false, "Usuário não existe no banco de dados");
+        }
+        else if(book is null)
+        {
+            return new BaseResult(false, "Livro não existe no banco de dados");
+        }
+
+        return new BaseResult();
     }
 }

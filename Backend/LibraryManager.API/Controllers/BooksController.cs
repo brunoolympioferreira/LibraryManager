@@ -47,4 +47,12 @@ public class BooksController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost("loan")]
+    public async Task<IActionResult> CreateLoan([FromBody] LoanInputModel model)
+    {
+        var result = await _service.AddLoan(model);
+
+        return Ok(result);
+    }
 }
