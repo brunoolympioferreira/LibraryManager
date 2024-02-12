@@ -25,6 +25,7 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
             modelBuilder.Entity("LibraryManager.Core.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Author")
@@ -66,9 +67,8 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BookId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -82,11 +82,16 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Loans");
                 });
@@ -94,6 +99,7 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
             modelBuilder.Entity("LibraryManager.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -120,36 +126,34 @@ namespace LibraryManager.Infraestructure.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("LibraryManager.Core.Entities.Loan", b =>
+                {
+                    b.HasOne("LibraryManager.Core.Entities.Book", "Book")
+                        .WithOne("Loan")
+                        .HasForeignKey("LibraryManager.Core.Entities.Loan", "BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryManager.Core.Entities.User", "User")
+                        .WithOne("Loan")
+                        .HasForeignKey("LibraryManager.Core.Entities.Loan", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LibraryManager.Core.Entities.Book", b =>
                 {
-                    b.HasOne("LibraryManager.Core.Entities.Loan", "Loan")
-                        .WithOne("Book")
-                        .HasForeignKey("LibraryManager.Core.Entities.Book", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("bookId");
-
-                    b.Navigation("Loan");
+                    b.Navigation("Loan")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LibraryManager.Core.Entities.User", b =>
                 {
-                    b.HasOne("LibraryManager.Core.Entities.Loan", "Loan")
-                        .WithOne("User")
-                        .HasForeignKey("LibraryManager.Core.Entities.User", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("userId");
-
-                    b.Navigation("Loan");
-                });
-
-            modelBuilder.Entity("LibraryManager.Core.Entities.Loan", b =>
-                {
-                    b.Navigation("Book")
-                        .IsRequired();
-
-                    b.Navigation("User")
+                    b.Navigation("Loan")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

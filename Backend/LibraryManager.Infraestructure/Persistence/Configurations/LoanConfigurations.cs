@@ -12,14 +12,12 @@ public class LoanConfigurations : IEntityTypeConfiguration<Loan>
         builder
             .HasOne(u => u.User)
             .WithOne(l => l.Loan)
-            .HasForeignKey<User>(u => u.Id)
-            .HasConstraintName("userId");
+            .HasForeignKey<Loan>(l => l.UserId);
 
         builder
             .HasOne(b => b.Book)
             .WithOne(l => l.Loan)
-            .HasForeignKey<Book>(b => b.Id)
-            .HasConstraintName("bookId");
+            .HasForeignKey<Loan>(l => l.BookId);
 
         builder.Ignore(b => b.Events);
     }

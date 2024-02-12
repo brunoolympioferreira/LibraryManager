@@ -24,7 +24,8 @@ public static class InfraestructureModule
     {
         services
             .AddScoped<IBookRepository, BookRepository>()
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<ILoanRepository, LoanRepository>();
 
         return services;
     }

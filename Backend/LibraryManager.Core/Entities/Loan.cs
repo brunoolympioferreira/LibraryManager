@@ -1,7 +1,7 @@
 ﻿namespace LibraryManager.Core.Entities;
 public class Loan : AggregateRoot
 {
-    public Loan(string userId, string bookId)
+    public Loan(Guid userId, Guid bookId)
     {
         UserId = userId;
         BookId = bookId;
@@ -9,10 +9,10 @@ public class Loan : AggregateRoot
         LoanDate = DateTime.Now;
     }
 
-    public string UserId { get; private set; }
-    public string BookId { get; private set; }
+    public Guid UserId { get; private set; }
+    public Guid BookId { get; private set; }
     public DateTime LoanDate { get; private set; }
 
-    public User User { get; set; }
-    public Book Book { get; set; }
+    public virtual User User { get; set; }
+    public virtual Book Book { get; set; }
 }
