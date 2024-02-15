@@ -8,4 +8,5 @@ public interface IBookService
     Task<BaseResult<List<BookViewModel>>> GetAll();
     Task<BaseResult<BookViewModel>> GetById(Guid id);
     Task<BaseResult> Delete(Guid id);
+    Task<BaseResult<Guid>> AddLoan(LoanInputModel model);
 }
