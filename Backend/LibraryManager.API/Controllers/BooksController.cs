@@ -55,4 +55,12 @@ public class BooksController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost("devolution")]
+    public async Task<IActionResult> CreateDevolutioin([FromBody] DevolutionLoanInputModel model)
+    {
+        var result = await _service.AddDevolutionLoan(model);
+
+        return Ok(result);
+    }
 }

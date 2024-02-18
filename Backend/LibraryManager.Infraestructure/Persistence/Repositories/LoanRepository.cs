@@ -1,5 +1,6 @@
 ﻿using LibraryManager.Core.Entities;
 using LibraryManager.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Infraestructure.Persistence.Repositories;
 public class LoanRepository : ILoanRepository
@@ -13,5 +14,12 @@ public class LoanRepository : ILoanRepository
     {
         await _context.Loans.AddAsync(loan);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<Loan> GetByIdAsync(Guid id)
+    {
+        Loan? loan = await _context.Loans.AsNoTracking().SingleOrDefaultAsync(l => l.Id == id);
+
+        return loan;
     }
 }
