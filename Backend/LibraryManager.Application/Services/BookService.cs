@@ -58,8 +58,6 @@ public class BookService : IBookService
 
     public async Task<BaseResult<Guid>> AddLoan(LoanInputModel model)
     {
-
-        //Testar desenvolvimento sem criar chave estrangeira na tabela de emprestimos
         BaseResult result = await LoanValidation(model);
 
         if (result.Success == false)
@@ -73,6 +71,22 @@ public class BookService : IBookService
         await _loanRepository.AddAsync(loan);
 
         return new BaseResult<Guid>(loan.Id);
+    }
+
+    public async Task<BaseResult<DevolutionResultViewModel>> AddDevolutionLoan(DevolutionLoanInputModel model)
+    {
+        var loan = await _loanRepository.GetByIdAsync(model.LoanId);
+        DevolutionResultViewModel viewModel = new();
+
+        if (loan is null)
+            return new BaseResult<DevolutionResultViewModel>(viewModel, false, "Empréstimo não cadastrado na base de dados");
+
+        (bool isLate, int diffDate) = CalculateDevolutionDate(loan.DevolutionDate);
+
+        if (isLate)
+            return new BaseResult<DevolutionResultViewModel>(viewModel with { IsLate = true, DaysOfDelay = diffDate}, true, $"Devolução de livro com {diffDate} dias de atraso");
+
+        return new BaseResult<DevolutionResultViewModel>(viewModel with { IsLate = false, DaysOfDelay = 0} , true, "Devolução em dia");
     }
 
     private async Task<BaseResult> LoanValidation(LoanInputModel model)
@@ -90,5 +104,13 @@ public class BookService : IBookService
         }
 
         return new BaseResult();
+    }
+
+    private static (bool,int) CalculateDevolutionDate(DateTime devolutionDate)
+    {
+        var diffDateDevolution = (DateTime.Now - devolutionDate).Days;
+        bool isLate = diffDateDevolution > 0;
+
+        return (isLate, diffDateDevolution);
     }
 }

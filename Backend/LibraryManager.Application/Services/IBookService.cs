@@ -9,4 +9,5 @@ public interface IBookService
     Task<BaseResult<BookViewModel>> GetById(Guid id);
     Task<BaseResult> Delete(Guid id);
     Task<BaseResult<Guid>> AddLoan(LoanInputModel model);
+    Task<BaseResult<DevolutionResultViewModel>> AddDevolutionLoan(DevolutionLoanInputModel model);
 }
