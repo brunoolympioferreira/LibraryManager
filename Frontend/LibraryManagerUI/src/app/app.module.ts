@@ -1,3 +1,4 @@
+import { ToolbarNavigationComponent } from './shared/components/toolbar-navigation/toolbar-navigation.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
@@ -8,12 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardHomeComponent } from './modules/dashboard/page/dashboard-home/dashboard-home.component';
 
-import { MessageService } from 'primeng/api';
+import { MessageService, SharedModule } from 'primeng/api';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardHomeComponent
+    DashboardHomeComponent,
+    ToolbarNavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +23,7 @@ import { MessageService } from 'primeng/api';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
