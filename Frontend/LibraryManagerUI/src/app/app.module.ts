@@ -14,8 +14,6 @@ import { MessageService, SharedModule } from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardHomeComponent,
-    ToolbarNavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +21,6 @@ import { MessageService, SharedModule } from 'primeng/api';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

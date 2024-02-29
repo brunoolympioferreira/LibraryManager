@@ -5,12 +5,14 @@ import { DashboardHomeComponent } from './modules/dashboard/page/dashboard-home/
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    component: DashboardHomeComponent
+    path: 'dashboard',
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(
+      (m) => m.DashboardModule
+    )
   }
 ];
 

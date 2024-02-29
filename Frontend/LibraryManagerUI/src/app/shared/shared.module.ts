@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
+    ToolbarNavigationComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
     ButtonModule
   ],
   exports: [
+    ToolbarNavigationComponent
   ]
 })
 export class SharedModule { }
