@@ -1,16 +1,13 @@
-<p-toolbar>
+<p-toolbar styleClass="bg-orange-600">
     <div class="p-toolbar-group-start">
-        <button pButton icon="pi pi-plus" class="mr-2"></button>
-        <button pButton icon="pi pi-print" class="mr-2"></button>
-        <button pButton icon="pi pi-upload"></button>
+        <p-button icon="pi pi-home" label="Dashboard" routerlink="/dashboard" styleClass="bg-orange-600 border-white"
+            p-button-success routerLinkActive="exact_route" class="mr-2"></p-button>
+
+        <p-button icon="pi pi-book" label="Gerenciamento de Livros" routerlink="/dashboard"
+            styleClass="bg-orange-600 border-white" p-button-success routerLinkActive="exact_route"
+            class="mr-2"></p-button>
+
+        <p-button icon="pi pi-book" label="Empréstimos" routerlink="/dashboard" styleClass="bg-orange-600 border-white"
+            p-button-success routerLinkActive="exact_route" class="mr-2"></p-button>
     </div>
-    <div class="p-toolbar-group-center">
-        <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText placeholder="Search" />
-        </span>
-    </div>
-    <!-- <div class="p-toolbar-group-end">
-        <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
-    </div> -->
 </p-toolbar>
